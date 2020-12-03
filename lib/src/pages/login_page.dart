@@ -8,9 +8,98 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          _createWallpaper(context)
+          _createWallpaper(context),
+          _loginForm(context)
         ],
       )
+    );
+  }
+
+  Widget _loginForm(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SafeArea( // Para los teléfonos con notch
+            child: Container(
+              height: 180.0,
+            )
+          ),
+          Container(
+            width: size.width * 0.85,
+            padding: EdgeInsets.symmetric(vertical: 50),
+            margin: EdgeInsets.symmetric(vertical: 30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 3.0,
+                  offset: Offset(0, 5),
+                  spreadRadius: 1
+                )
+              ]
+            ),
+            child: Column(
+              children: [
+                Text('Ingreso', style: TextStyle(fontSize: 20.0),),
+                SizedBox(height: 60),
+                _createEmail(),
+                SizedBox(height: 30),
+                _createPassword(),
+                SizedBox(height: 30),
+                _createButton()
+              ],
+            ),
+          ),
+          Text('¿Olvido la contraseña?'),
+          SizedBox(height: 100,)
+        ],
+      ),
+    );
+  }
+
+  Widget _createEmail() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          icon: Icon(Icons.email, color: Colors.deepPurple,),
+          hintText: 'email@domain.com',
+          labelText: 'Correo electrónico'
+        ),
+      ),
+    );
+  }
+  
+  Widget _createPassword() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        obscureText: true,
+        decoration: InputDecoration(
+          icon: Icon(Icons.lock, color: Colors.deepPurple,),
+          labelText: 'Contraseña'
+        ),
+      ),
+    );
+  }
+
+  Widget _createButton() {
+    return RaisedButton(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+        child: Text('Ingresar'),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5)
+      ),
+      elevation: 0,
+      color: Colors.deepPurple,
+      textColor: Colors.white,
+      onPressed: () {}
     );
   }
 
