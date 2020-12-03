@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:formularios_flutter/src/utils/utils.dart' as utils;
 
-class ProductoPage extends StatelessWidget {
-  const ProductoPage({Key key}) : super(key: key);
+class ProductoPage extends StatefulWidget {
+
+  @override
+  _ProductoPageState createState() => _ProductoPageState();
+}
+
+class _ProductoPageState extends State<ProductoPage> {
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +30,7 @@ class ProductoPage extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(15),
           child: Form(
+            key: formKey,
             child: Column(
               children: [
                 _createName(),
@@ -45,6 +53,12 @@ class ProductoPage extends StatelessWidget {
         labelText: 'Producto',
         border: OutlineInputBorder()
       ),
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingrese el nombre del producto';
+        }
+        return null;
+      },
     );
   }
 
@@ -55,6 +69,9 @@ class ProductoPage extends StatelessWidget {
         labelText: 'Price',
         border: OutlineInputBorder()
       ),
+      validator: (value) {
+        return utils.isNumeric(value) ? null : 'Sólo se aceptan números';
+      },
     );
   }
 
@@ -68,7 +85,13 @@ class ProductoPage extends StatelessWidget {
       textColor: Colors.white,
       label: Text('Guardar'),
       icon: Icon(Icons.save),
-      onPressed: () { }
+      onPressed: _submit
     );
+  }
+
+  void _submit() {
+    if (formKey.currentState.validate()) {
+      print('all ok');
+    }
   }
 }
