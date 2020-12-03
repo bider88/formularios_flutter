@@ -75,10 +75,12 @@ class LoginPage extends StatelessWidget {
           child: TextField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
+              border: OutlineInputBorder(),
               icon: Icon(Icons.email, color: Colors.deepPurple,),
               hintText: 'email@domain.com',
               labelText: 'Correo electrónico',
-              counterText: snapshot.data
+              counterText: snapshot.data,
+              errorText: snapshot.error
             ),
             // onChanged: (value) => bloc.changeEmail(value),
             onChanged: bloc.changeEmail,
@@ -97,9 +99,12 @@ class LoginPage extends StatelessWidget {
           child: TextField(
             obscureText: true,
             decoration: InputDecoration(
+              helperText: 'Longitud mínima de 6 carácteres',
+              border: OutlineInputBorder(),
               icon: Icon(Icons.lock, color: Colors.deepPurple,),
               labelText: 'Contraseña',
-              counterText: snapshot.data
+              counterText: snapshot.data,
+              errorText: snapshot.error
             ),
             onChanged: bloc.changePassword,
           ),
